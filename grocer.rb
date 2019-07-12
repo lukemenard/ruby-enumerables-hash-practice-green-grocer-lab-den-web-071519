@@ -14,23 +14,22 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons) 
-  clean_cart = consolidate_cart(cart)
   coupons.each do |coupon| 
     coupon.each do |attribute, value| 
       item = coupon[:item] 
-      if clean_cart[item] && clean_cart[item][:count] >= coupon[:num] 
-        if clean_cart["#{item} W/COUPON"] 
-          clean_cart["#{item} W/COUPON"][:count] += coupon[:num] 
+      if cart[item] && cart[item][:count] >= coupon[:num] 
+        if cart["#{item} W/COUPON"] 
+          cart["#{item} W/COUPON"][:count] += coupon[:num] 
         else
-          clean_cart["#{item} W/COUPON"] = {:price => coupon[:cost], 
-          :clearance => clean_cart[item][:clearance], :count => coupon[:num]} 
-          clean_cart["#{item} W/COUPON"][:price] = (clean_cart["#{item} W/COUPON"][:price] / coupon[:num])
+          cart["#{item} W/COUPON"] = {:price => coupon[:cost], 
+          :clearance => cart[item][:clearance], :count => coupon[:num]} 
+          cart["#{item} W/COUPON"][:price] = (cart["#{item} W/COUPON"][:price] / coupon[:num])
         end 
-      clean_cart[item][:count] -= coupon[:num]
+      cart[item][:count] -= coupon[:num]
     end 
   end 
 end 
-  clean_cart 
+  cart 
 end
 
 def apply_clearance(cart)
