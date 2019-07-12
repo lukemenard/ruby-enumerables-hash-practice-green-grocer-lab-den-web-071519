@@ -15,11 +15,12 @@ end
 def apply_coupons(cart, coupons)
   hash = cart
   coupons.each do |coupon_hash|
+    # add coupon to cart
     item = coupon_hash[:item]
 
     if !hash[item].nil? && hash[item][:count] >= coupon_hash[:num]
       temp = {"#{item} W/COUPON" => {
-        :price => (coupon_hash[:cost]/coupon_hash[:num]),
+        :price => coupon_hash[:cost],
         :clearance => hash[item][:clearance],
         :count => 1
         }
@@ -28,7 +29,7 @@ def apply_coupons(cart, coupons)
       if hash["#{item} W/COUPON"].nil?
         hash.merge!(temp)
       else
-        hash["#{item} W/COUPON"][:count] += coupon_hash[:num]
+        hash["#{item} W/COUPON"][:count] += coupon[:number]
       end
       
       hash[item][:count] -= coupon_hash[:num]
