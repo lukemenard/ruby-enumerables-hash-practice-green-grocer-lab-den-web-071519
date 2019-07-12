@@ -14,6 +14,7 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons) 
+  clean_cart = consolidate_cart(cart)
   coupons.each do |coupon| 
     coupon.each do |attribute, value| 
       item = coupon[:item] 
