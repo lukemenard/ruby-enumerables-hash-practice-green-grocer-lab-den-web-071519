@@ -1,12 +1,12 @@
 def consolidate_cart(cart)
   clean_cart = {}
   cart.each do |item|
-    item.each do |x, info|
-      if clean_cart[x]
-        clean_cart[x][:count] += 1
+    item.each do |key, value|
+      if clean_cart[key]
+        clean_cart[key][:count] += 1
       else
-        clean_cart[x] = info
-        clean_cart[x][:count] = 1
+        clean_cart[key] = value
+        clean_cart[key][:count] = 1
       end
     end
   end
