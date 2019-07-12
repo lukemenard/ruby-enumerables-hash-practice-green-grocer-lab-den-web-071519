@@ -18,19 +18,19 @@ def apply_coupons(cart, coupons)
   coupons.each do |coupon| 
     coupon.each do |attribute, value| 
       item = coupon[:item] 
-      if cart[item] && cart[item][:count] >= coupon[:num] 
-        if cart["#{item} W/COUPON"] 
-          cart["#{item} W/COUPON"][:count] += coupon[:num] 
+      if clean_cart[item] && clean_cart[item][:count] >= coupon[:num] 
+        if clean_cart["#{item} W/COUPON"] 
+          clean_cart["#{item} W/COUPON"][:count] += coupon[:num] 
         else
-          cart["#{item} W/COUPON"] = {:price => coupon[:cost], 
-          :clearance => cart[item][:clearance], :count => coupon[:num]} 
-          cart["#{item} W/COUPON"][:price] = (cart["#{item} W/COUPON"][:price] / coupon[:num])
+          clean_cart["#{item} W/COUPON"] = {:price => coupon[:cost], 
+          :clearance => clean_cart[item][:clearance], :count => coupon[:num]} 
+          clean_cart["#{item} W/COUPON"][:price] = (clean_cart["#{item} W/COUPON"][:price] / coupon[:num])
         end 
-      cart[item][:count] -= coupon[:num]
+      clean_cart[item][:count] -= coupon[:num]
     end 
   end 
 end 
-  cart 
+  clean_cart 
 end
 
 def apply_clearance(cart)
